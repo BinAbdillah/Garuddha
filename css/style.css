@@ -1,0 +1,154 @@
+/* =========================================================
+   style.css — TEMA "GARUDA": hitam arang + merah menyala
+   (lapisan remap: seluruh utility ikut berganti tanpa ubah JS)
+   ========================================================= */
+
+   :root {
+    --bg:        #0C0D0F;   /* latar halaman — hitam arang */
+    --surface:   #15171A;   /* kartu / header */
+    --fill:      #23262B;   /* isian lembut */
+    --line:      #2E3238;   /* garis tepi */
+    --line-soft: #23262B;
+    --merah:     #DC2626;   /* aksen utama */
+    --merah-terang: #EF4444;
+  }
+  
+  html { scroll-behavior: smooth; font-size: 17px; }
+  
+  /* Lenis */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  
+  /* Font judul */
+  h1, h2, h3 {
+    font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
+  h2 { color: #F4F4F5; }
+  
+  body { color: #E4E4E7; }
+  
+  ::selection { background: #DC2626; color: #fff; }
+  
+  /* Noise halus */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+  
+  /* ---------- REMAP LATAR ---------- */
+  body            { background-color: var(--bg) !important; }
+  .bg-white       { background-color: var(--surface) !important; }
+  .bg-white\/90   { background-color: color-mix(in srgb, var(--surface) 92%, transparent) !important; }
+  .bg-slate-50    { background-color: var(--bg) !important; }
+  .bg-slate-100   { background-color: var(--fill) !important; }
+  
+  /* emerald → merah */
+  .bg-emerald-600      { background-color: var(--merah) !important; }
+  .bg-emerald-500      { background-color: var(--merah-terang) !important; }
+  .bg-emerald-100      { background-color: #3B1214 !important; }
+  .bg-emerald-600\/10  { background-color: rgb(220 38 38 / .16) !important; }
+  .bg-emerald-500\/10  { background-color: rgb(239 68 68 / .12) !important; }
+  .bg-emerald-500\/20  { background-color: rgb(239 68 68 / .18) !important; }
+  .bg-emerald-600\/90  { background-color: #B91C1C !important; }   /* marquee */
+  .bg-emerald-700\/30  { background-color: rgb(220 38 38 / .35) !important; }
+  
+  /* ---------- REMAP TEKS ---------- */
+  .text-slate-900 { color: #F4F4F5 !important; }
+  .text-slate-800 { color: #E4E4E7 !important; }
+  .text-slate-600 { color: #A8ADB5 !important; }
+  .text-slate-500 { color: #9BA1AA !important; }
+  .text-slate-400 { color: #878D96 !important; }
+  .text-slate-300 { color: #D4D4D8 !important; }
+  .text-slate-200 { color: #E5E7EB !important; }
+  .text-emerald-700 { color: #F87171 !important; }
+  .text-emerald-800 { color: #F87171 !important; }
+  .text-emerald-300 { color: #FCA5A5 !important; }
+  .text-emerald-500 { color: #FEE2E2 !important; }
+  .hover\:text-emerald-400:hover { color: #F87171 !important; }
+  
+  /* ---------- REMAP GARIS / RING / SHADOW ---------- */
+  .border-slate-200   { border-color: var(--line) !important; }
+  .border-slate-100   { border-color: var(--line-soft) !important; }
+  .border-emerald-700\/40 { border-color: rgb(220 38 38 / .55) !important; }
+  .border-emerald-400\/40 { border-color: rgb(248 113 113 / .4) !important; }
+  .ring-emerald-500   { --tw-ring-color: #EF4444 !important; }
+  .shadow-emerald-500\/30 { --tw-shadow-color: rgb(239 68 68 / .35) !important; }
+  
+  #header.scrolled { box-shadow: 0 6px 20px rgb(0 0 0 / .5); }
+  
+  /* Teks outline → merah menyala */
+  .text-outline { -webkit-text-stroke: 2px rgb(239 68 68 / .95); color: transparent; }
+  .text-outline-dark { -webkit-text-stroke: 1.5px rgb(255 255 255 / .35); color: transparent; }
+  
+  /* Line-mask reveal */
+  .mask { display: block; overflow: hidden; }
+  .mask-line { display: block; will-change: transform; }
+  .mask-line { display: block; will-change: transform; }
+
+  /* BARU: bungkus per-huruf untuk stagger hero */
+  .huruf { display: inline-block; will-change: transform; }
+  /* Marquee */
+  .marquee { overflow: hidden; }
+  .marquee-track {
+    display: flex; align-items: center; white-space: nowrap; width: max-content;
+    padding: .7rem 0; animation: mq 26s linear infinite; will-change: transform;
+  }
+  @keyframes mq { to { transform: translateX(-50%); } }
+  
+  /* Reveal aman (gating .fx) */
+  .fx .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+  .fx .reveal.on { opacity: 1; transform: none; }
+  
+  /* ---------- Etalase fasilitas: DUA MODE (warna tema baru) ---------- */
+  .fas-track { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  @media (min-width: 640px)  { .fas-track { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) {
+    .fas-track { grid-template-columns: repeat(3, 1fr); }
+    html:not(.fx) #fasWrap > p:last-child { display: none !important; }
+  
+    html.fx #fasWrap {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; gap: 2.5rem; overflow: hidden;
+    }
+    html.fx .fas-track {
+      display: flex; grid-template-columns: none; width: max-content; max-width: none;
+      gap: 1.5rem;
+      padding-left: max(1.25rem, calc((100vw - 72rem) / 2 + 1.25rem));
+      padding-right: 2rem;
+      perspective: 1200px;
+    }
+    html.fx .fas-card { width: 360px; flex: none; transition: transform .35s ease, box-shadow .35s ease; }
+    html.fx .fas-card:hover {
+      transform: translateY(-8px) rotateX(3deg) rotateY(-3deg) scale(1.03);
+      box-shadow: 0 18px 30px -10px rgb(220 38 38 / .3);
+    }
+  }
+  
+  /* Hero overlay → hitam-merah */
+  .hero-overlay { background: linear-gradient(135deg, rgb(127 29 29 / .82), rgb(5 5 8 / .92)); }
+  
+  /* Kartu */
+  .kartu {
+    border-radius: 1rem; border: 1px solid var(--line); background: var(--surface);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / .4);
+  }
+  .kartu-hover { transition: transform .2s ease, box-shadow .2s ease; }
+  .kartu-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 22px -6px rgb(0 0 0 / .6), 0 2px 4px -2px rgb(220 38 38 / .15);
+  }
+  
+  /* Navigasi */
+  .nav-link { border-radius: .5rem; padding: .6rem 1rem; font-size: 1rem; font-weight: 600; color: #CFD4DA; }
+  .nav-link:hover { background: #2A1214; color: #F87171; }
+  
+  /* Lain-lain */
+  .nilai-kosong { font-style: italic; color: #7C8087; }
+  .pin-f {
+    display: flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; background: #15171A; border: 2px solid #DC2626;
+    border-radius: 50% 50% 50% 6px; box-shadow: 0 4px 10px rgb(0 0 0 / .5); font-size: 18px;
+  }
+  .leaflet-popup-content { font-family: inherit; }
